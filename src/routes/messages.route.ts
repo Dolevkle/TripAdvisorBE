@@ -2,7 +2,7 @@ import express from "express";
 import { addMessage, getMessages } from "../controllers/message.controller";
 const router = express.Router();
 
-router.post("/addmsg/", addMessage);
-router.post("/getmsg/", getMessages);
+router.post("/addMsg", addMessage);
+router.post("/getMsg", getMessages);
 
 export default router;

@@ -27,7 +27,7 @@ const initApp = (): Promise<Express> => {
       })
       app.use("/auth", authRoute);
       app.use("/public", express.static("public"));
-      app.use("/api/messages", messagesRoute);
+      app.use("/messages", messagesRoute);
       app.use("/file", fileRoute);
       resolve(app);
     });

@@ -1,35 +1,55 @@
 import initApp from "./app";
-import https from 'https';
-import http from 'http';
-import fs from 'fs';
-import swaggerUI from "swagger-ui-express"
-import swaggerJsDoc from "swagger-jsdoc"
+import https from "https";
+import http from "http";
+import fs from "fs";
+import swaggerUI from "swagger-ui-express";
+import swaggerJsDoc from "swagger-jsdoc";
+import socket, { Server } from "socket.io";
 
-initApp().then((app) => {
+global.onlineUsers = new Map();
+const server = initApp().then((app) => {
   const options = {
     definition: {
       openapi: "3.0.0",
       info: {
         title: "Web Advanced Application development 2023 REST API",
         version: "1.0.1",
-        description: "REST server including authentication using JWT and refresh token",
+        description:
+          "REST server including authentication using JWT and refresh token",
       },
-      servers: [{ url: "http://localhost:3000", },],
+      servers: [{ url: "http://localhost:3000" }],
     },
     apis: ["./src/routes/*.ts"],
   };
   const specs = swaggerJsDoc(options);
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('development');
-    http.createServer(app).listen(process.env.PORT);
+  if (process.env.NODE_ENV !== "production") {
+    console.log("development");
+    return http.createServer(app).listen(process.env.PORT);
   } else {
-    console.log('PRODUCTION');
+    console.log("PRODUCTION");
     const options2 = {
-      key: fs.readFileSync('../client-key.pem'),
-      cert: fs.readFileSync('../client-cert.pem')
+      key: fs.readFileSync("../client-key.pem"),
+      cert: fs.readFileSync("../client-cert.pem"),
     };
-    https.createServer(options2, app).listen(process.env.HTTPS_PORT);
+    return https.createServer(options2, app).listen(process.env.HTTPS_PORT);
   }
+});
+
+const io = new Server(void server);
+
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    console.log("roni");
+    global.onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = global.onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-receive", data.msg);
+    }
+  });
 });
