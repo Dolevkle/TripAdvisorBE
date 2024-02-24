@@ -39,32 +39,35 @@ const googleSignin = async (req: Request, res: Response) => {
 
 const register = async (req: Request, res: Response) => {
   const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
   const imgUrl = req.body.imgUrl;
-  if (!email || !password) {
-    return res.status(400).send("missing email or password");
+  if (!email || !password || !username) {
+    return res.status(400).send("missing email or password or username");
   }
   try {
-    const rs = await User.findOne({ email: email });
+    const rs = await User.findOne({ $or: [{email}, {username}]});
     if (rs != null) {
-      return res.status(406).send("email already exists");
+      return res.status(406).send("email or username already exists");
     }
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
     const rs2 = await User.create({
-      email: email,
+      email,
+      username,
       password: encryptedPassword,
-      imgUrl: imgUrl,
+      imgUrl,
     });
     const tokens = await generateTokens(rs2);
     res.status(201).send({
       email: rs2.email,
+      username: rs2.username,
       _id: rs2._id,
       imgUrl: rs2.imgUrl,
       ...tokens,
     });
   } catch (err) {
-    return res.status(400).send("error missing email or password");
+    return res.status(400).send("error missing email or password or username");
   }
 };
 
@@ -89,25 +92,26 @@ const generateTokens = async (user: Document & IUser) => {
 };
 
 const login = async (req: Request, res: Response) => {
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
-  if (!email || !password) {
+  if (!username || !password) {
     return res.status(400).send("missing email or password");
   }
   try {
-    const user = await User.findOne({ email: email });
+    const user = await User.findOne({ username: username });
     if (user == null) {
-      return res.status(401).send("email or password incorrect");
+      return res.status(401).send("username or password incorrect");
     }
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.status(401).send("email or password incorrect");
+      return res.status(401).send("username or password incorrect");
     }
 
     const tokens = await generateTokens(user);
     // TODO might be wrong what I did
     return res.status(200).send({
       email: user.email,
+      username: user.username,
       _id: user._id,
       imgUrl: user.imgUrl,
       ...tokens,
@@ -200,6 +204,7 @@ const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({ _id: { $ne: req.params.id } }).select([
       "email",
+      "username",
       "imgUrl",
       "_id",
     ]);
