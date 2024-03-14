@@ -108,8 +108,10 @@ const login = async (req: Request, res: Response) => {
     }
 
     const tokens = await generateTokens(user);
-    //return token
-    return res.status(200).send(tokens);
+    return res.status(200).send({
+      'accessToken': tokens.accessToken,
+      'refreshToken': tokens.refreshToken
+    });
 
   } catch (err) {
     return res.status(400).send("error missing email or password");
