@@ -7,9 +7,19 @@ Content-Type: application/json
 "email": "somet1@gmail.com","username": "some1", "password":"123"
 }
 ###
+//login
 POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
  "username": "some1", "password":"123"
 }
+###
+GET http://localhost:3000/auth/logout
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzMDI3NjFhYTgxYjY0YTQzMDY0MjMiLCJpYXQiOjE3MTA0MzEzOTB9.9YSz6OXgbFhksbjMhA-1HfsbE3eCKTv3QLmTzUMTqjk
+###
+GET http://localhost:3000/auth/refresh
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzMDI3NjFhYTgxYjY0YTQzMDY0MjMiLCJpYXQiOjE3MTA0MzcyMzZ9.f0biw60wqyoRqrfkYSZsxqqNPB_e7NPqskVwxZCQ5pE
+###
