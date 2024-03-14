@@ -41,9 +41,11 @@ const register = async (req: Request, res: Response) => {
   const email = req.body.email;
   const username = req.body.username;
   const password = req.body.password;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
   const imgUrl = req.body.imgUrl;
-  if (!email || !password || !username) {
-    return res.status(400).send("missing email or password or username");
+  if (!email || !password || !username || !firstName || !lastName) {
+    return res.status(400).send("one required argument missing");
   }
   try {
     const rs = await User.findOne({ $or: [{email}, {username}]});
@@ -56,12 +58,16 @@ const register = async (req: Request, res: Response) => {
       email,
       username,
       password: encryptedPassword,
+      firstName,
+      lastName,
       imgUrl,
     });
     const tokens = await generateTokens(rs2);
     res.status(201).send({
       email: rs2.email,
       username: rs2.username,
+      firstName: rs2.firstName,
+      lastName: rs2.lastName,
       _id: rs2._id,
       imgUrl: rs2.imgUrl,
       ...tokens,
