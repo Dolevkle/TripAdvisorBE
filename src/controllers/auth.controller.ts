@@ -108,14 +108,9 @@ const login = async (req: Request, res: Response) => {
     }
 
     const tokens = await generateTokens(user);
-    // TODO might be wrong what I did
-    return res.status(200).send({
-      email: user.email,
-      username: user.username,
-      _id: user._id,
-      imgUrl: user.imgUrl,
-      ...tokens,
-    });
+    //return token
+    return res.status(200).send(tokens);
+
   } catch (err) {
     return res.status(400).send("error missing email or password");
   }
