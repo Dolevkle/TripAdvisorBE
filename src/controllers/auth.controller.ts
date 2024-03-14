@@ -54,7 +54,7 @@ const register = async (req: Request, res: Response) => {
     }
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
-    const rs2 = await User.create({
+    const rs2 = await User.findOne({
       email,
       username,
       password: encryptedPassword,
@@ -101,7 +101,7 @@ const login = async (req: Request, res: Response) => {
   const username = req.body.username;
   const password = req.body.password;
   if (!username || !password) {
-    return res.status(400).send("missing email or password");
+    return res.status(400).send("missing username or password");
   }
   try {
     const user = await User.findOne({ username: username });

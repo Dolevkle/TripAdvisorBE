@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import authRoute from "./routes/auth.route";
 import messagesRoute from "./routes/messages.route";
 import fileRoute from "./routes/file.route";
-
+import userRoute from "./routes/user.route"
 
 const initApp = (): Promise<Express> => {
   const promise = new Promise<Express>((resolve) => {
@@ -25,6 +25,7 @@ const initApp = (): Promise<Express> => {
         res.header("Access-Control-Allow-Credentials", "true");
         next();
       })
+      app.use("/user", userRoute);
       app.use("/auth", authRoute);
       app.use("/public", express.static("public"));
       app.use("/messages", messagesRoute);
