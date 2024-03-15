@@ -4,7 +4,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
- "firstName":"mashuuu", "lastName":"tov","email": "somet12@gmail.com","username": "some12", "password":"1232"
+ "firstName":"mashuuu", "lastName":"tov","email": "somet121@gmail.com","username": "some121", "password":"12325"
 }
 ###
 //login
@@ -12,7 +12,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
- "username": "some16", "password":"123"
+ "username": "some121", "password":"12325"
 }
 ###
 GET http://localhost:3000/auth/logout
@@ -21,7 +21,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzMDI3NjFh
 ###
 GET http://localhost:3000/auth/refresh
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzMDI3NjFhYTgxYjY0YTQzMDY0MjMiLCJpYXQiOjE3MTA0MzcyMzZ9.f0biw60wqyoRqrfkYSZsxqqNPB_e7NPqskVwxZCQ5pE
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0MzNlZmZkNWIwZTRiNzZkYTgwNzUiLCJpYXQiOjE3MTA1MDI4OTl9.6kQHlCIK5mkaBBUtML-Gs8gQZUj18N1Kw-S1Arh3ahE
 ###
 PUT http://localhost:3000/user/65f33f7987937e974c371ad6
 Content-Type: application/json
@@ -30,3 +30,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzMDI3NjFh
 {
     "email":"mashu2", "username": "some16", "password":"123"
 }
+###
+DELETE http://localhost:3000/user
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0MzNlZmZkNWIwZTRiNzZkYTgwNzUiLCJpYXQiOjE3MTA1MDMxNDAsImV4cCI6MTcxMDUwNjc0MH0.xqt_OtAnniQLFYr38qF6WCoNWjN3cKfcEUa2BeqpKTo

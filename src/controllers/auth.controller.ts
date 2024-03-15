@@ -54,7 +54,7 @@ const register = async (req: Request, res: Response) => {
     }
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
-    const rs2 = await User.findOne({
+    const rs2 = await User.create({
       email,
       username,
       password: encryptedPassword,

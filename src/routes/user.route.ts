@@ -11,6 +11,6 @@ router.post("/", authMiddleware, userController.post.bind(userController));
 
 router.put("/:id", authMiddleware, userController.putById.bind(userController));
 
-router.delete("/:id", authMiddleware, userController.deleteById.bind(userController));
+router.delete("/", authMiddleware, userController.deleteById.bind(userController));
 
 export default router;

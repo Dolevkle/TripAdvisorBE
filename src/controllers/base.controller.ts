@@ -50,7 +50,14 @@ export class BaseController<ModelType>{
             const updatedUser = await this.model.findOneAndUpdate(filter,req.body,{
                 new : true
             });
-            res.status(200).send(updatedUser);
+            if(!updatedUser)
+            {
+                res.status(404).send("Not found, update failed");
+            }
+            else
+            {
+                 res.status(200).send(updatedUser);
+            }
         }
         catch (err){
             console.log(err);
@@ -62,7 +69,14 @@ export class BaseController<ModelType>{
         console.log("delete by id: " +req.params.id);
         try{
            const deletedCount = await this.model.deleteOne({_id: req.params.id});
-           res.status(200).send(deletedCount);
+           if(deletedCount["deletedCount"] == 0 )
+           {
+            res.status(404).send("id not found, deleted failed");
+           }
+           else
+           {
+            res.status(200).send(deletedCount);
+           }
         }
         catch(err){
             console.log(err);

@@ -3,7 +3,6 @@ import { BaseController } from "./base.controller";
 import { Response } from "express";
 import { AuthResquest } from "../common/auth.middleware";
 import bcrypt from "bcrypt";
-
 // const UserController = createController<IUser>(UserModel);
 
 class UserController extends BaseController<IUser>{
@@ -18,7 +17,15 @@ class UserController extends BaseController<IUser>{
         req.body.password = await bcrypt.hash(req.body.password, salt);
         }
         super.putById(req,res);
+        
     }
+
+    async deleteById(req: AuthResquest, res: Response) {
+        req.params.id = req.user["_id"];
+        super.deleteById(req,res);
+    }
+
+
 }
 
 
