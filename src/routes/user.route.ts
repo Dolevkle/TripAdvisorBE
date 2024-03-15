@@ -7,7 +7,7 @@ router.get("/", authMiddleware, userController.get.bind(userController));
 
 router.get("/:id", authMiddleware, userController.getById.bind(userController));
 
-router.post("/", authMiddleware, userController.post.bind(userController));
+// router.post("/", authMiddleware, userController.post.bind(userController));
 
 router.put("/:id", authMiddleware, userController.putById.bind(userController));
 
