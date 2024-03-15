@@ -9,11 +9,11 @@ export class BaseController<ModelType>{
     }
 
     async get(req: Request, res: Response) {
-        console.log("getAllUsers");
+        console.log("getAll");
         try {
             if (req.query.name) {
-                const users = await this.model.find({ name: req.query.name });
-                res.send(users);
+                const objects = await this.model.find({ name: req.query.name });
+                res.send(objects);
             } else {
                 const users = await this.model.find();
                 res.send(users);
@@ -24,17 +24,17 @@ export class BaseController<ModelType>{
     }
 
     async getById(req: Request, res: Response) {
-        console.log("getUserById:" + req.params.id);
+        console.log("getById:" + req.params.id);
         try {
-            const user = await this.model.findById(req.params.id);
-            res.send(user);
+            const obj = await this.model.findById(req.params.id);
+            res.send(obj);
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
     }
 
     async post(req: Request, res: Response) {
-        console.log("postUser:" + req.body);
+        console.log("post:" + req.body);
         try {
             const obj = await this.model.create(req.body);
             res.status(201).send(obj);
@@ -47,16 +47,16 @@ export class BaseController<ModelType>{
         const filter = { _id: req.params.id };
         console.log("put by id: " +req.params.id);
         try {
-            const updatedUser = await this.model.findOneAndUpdate(filter,req.body,{
+            const updatedObj = await this.model.findOneAndUpdate(filter,req.body,{
                 new : true
             });
-            if(!updatedUser)
+            if(!updatedObj)
             {
                 res.status(404).send("Not found, update failed");
             }
             else
             {
-                 res.status(200).send(updatedUser);
+                 res.status(200).send(updatedObj);
             }
         }
         catch (err){
@@ -71,7 +71,7 @@ export class BaseController<ModelType>{
            const deletedCount = await this.model.deleteOne({_id: req.params.id});
            if(deletedCount["deletedCount"] == 0 )
            {
-            res.status(404).send("id not found, deleted failed");
+            res.status(404).send("id not found, delete failed");
            }
            else
            {

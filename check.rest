@@ -4,7 +4,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
- "firstName":"mashuuu", "lastName":"tov","email": "somet121@gmail.com","username": "some121", "password":"12325"
+ "firstName":"mashuuu", "lastName":"tov","email": "somet1211@gmail.com","username": "some1211", "password":"12325"
 }
 ###
 //login
@@ -34,3 +34,29 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzMDI3NjFh
 DELETE http://localhost:3000/user
 Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0MzNlZmZkNWIwZTRiNzZkYTgwNzUiLCJpYXQiOjE3MTA1MDMxNDAsImV4cCI6MTcxMDUwNjc0MH0.xqt_OtAnniQLFYr38qF6WCoNWjN3cKfcEUa2BeqpKTo
+###
+DELETE http://localhost:3000/userPost/65f45a7bb78c32ba339b16cf
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+
+###
+POST http://localhost:3000/userPost
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+
+{
+    "content": "best post ever", "imgurl":"asdqwre"
+}
+###
+PUT http://localhost:3000/userPost/65f45a78b78c32ba339b16cc
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+
+{
+    "content": "best post a", "imgurl":"asdw"
+}
+###
+GET http://localhost:3000/userPost/65f45a78b78c32ba339b16cc
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+
