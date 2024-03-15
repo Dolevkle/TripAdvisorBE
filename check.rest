@@ -12,7 +12,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
- "username": "some121", "password":"12325"
+ "username": "some1211", "password":"12325"
 }
 ###
 GET http://localhost:3000/auth/logout
@@ -42,21 +42,27 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFk
 ###
 POST http://localhost:3000/userPost
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MzI0MDgsImV4cCI6MTcxMDUzNjAwOH0.fjCdm27BcnC6fWuvjnz7t82ee18-qrZt3T7rISfzK2Q
 
 {
-    "content": "best post ever", "imgurl":"asdqwre"
+    "content": "best post ever12312 nowa", "imgurl":"asdqwre"
 }
 ###
-PUT http://localhost:3000/userPost/65f45a78b78c32ba339b16cc
+PUT http://localhost:3000/userPost/65f47e866f510f38d6686bf4
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MjE5NjMsImV4cCI6MTcxMDUyNTU2M30.QJdAkF7jOxQ3mJ4co5-K870y2yuZGB_x2dStgkohENc
 
 {
-    "content": "best post a", "imgurl":"asdw"
+    "content": "best post ever", "imgurl":"asdqwre", "comments":[{
+        "content":"something","responder_name":"something", "responder_last_name":"something2"}
+        ]
 }
 ###
-GET http://localhost:3000/userPost/65f45a78b78c32ba339b16cc
+GET http://localhost:3000/userPost/65f47e866f510f38d6686bf4
 Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+###
 
+GET http://localhost:3000/userPost/user/allPosts
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MzI0MDgsImV4cCI6MTcxMDUzNjAwOH0.fjCdm27BcnC6fWuvjnz7t82ee18-qrZt3T7rISfzK2Q

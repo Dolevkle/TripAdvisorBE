@@ -3,24 +3,29 @@ import mongoose from "mongoose";
 
 
 
-export interface PostComment{
-  id: number;
-  message: string;
-  commentator_name: string;
+export interface IPostComment {
+  commentId: number;
+  content: string;
+  responder_name: string;
+  responder_last_name:string;
 }
 
 
-const PostComment = new mongoose.Schema<PostComment>({
-  id:{
-    type : Number,
-    required: true
-  },
-  message:{
+export const PostComment = new mongoose.Schema<IPostComment>({
+  // commentId:{
+  //   type : Number,
+  //   required: true
+  // },
+  content:{
     type: String,
     reuired: true
   },
 
-  commentator_name:{
+  responder_name:{
+    type : String,
+    required: true
+  },
+  responder_last_name:{
     type : String,
     required: true
   }
@@ -30,17 +35,10 @@ export interface IUserPost {
   content: string;
   imgurl: string
   owner: string;
-  comments: [PostComment];
+  comments: [IPostComment];
 }
 
-// export class PostComment{
-//   id: number;
-//   message: string;
-//   commentator_name: string;
-
-// }
-
-const studentPostSchema = new mongoose.Schema<IUserPost>({
+const userPostSchema = new mongoose.Schema<IUserPost>({
   content: {
     type: String,
     required: true,
@@ -59,4 +57,4 @@ const studentPostSchema = new mongoose.Schema<IUserPost>({
   },
 });
 
-export default mongoose.model<IUserPost>("UserPost", studentPostSchema);
+export default mongoose.model<IUserPost>("UserPost", userPostSchema);
