@@ -60,6 +60,7 @@ class UserPostController extends BaseController<IUserPost>{
         }
         
     }
+
 }
 
 export default new UserPostController();

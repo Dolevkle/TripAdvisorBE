@@ -9,6 +9,9 @@ router.get("/:id", authMiddleware, userController.getById.bind(userController));
 
 // router.post("/", authMiddleware, userController.post.bind(userController));
 
+router.get("/filter/name",userController.getUserByName.bind(userController))
+
+
 router.put("/:id", authMiddleware, userController.putById.bind(userController));
 
 router.delete("/", authMiddleware, userController.deleteById.bind(userController));
