@@ -72,5 +72,5 @@ GET http://localhost:3000/user/filter/name
 Content-Type: application/json
 
 {
-    "fullName": "m"
+    "fullName": ""
 }

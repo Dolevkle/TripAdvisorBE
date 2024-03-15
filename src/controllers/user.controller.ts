@@ -28,14 +28,12 @@ class UserController extends BaseController<IUser>{
         let users =[];
         //query for searching string that contains
         if(!last_name){
-            users = await UserModel.find({$or:[{
-                firstName :{$regex: first_name, $options: 'i'}
-            }]});
+            users = await UserModel.find({firstName :{$regex: first_name, $options: 'i'}});
         }
         else{
              users = await UserModel.find({$and:[{
-                firstName :{$regex: first_name, $options: 'i'}},
-                            {$regex: last_name, $options: 'i'}]});
+                firstName :{$regex: first_name, $options: 'i'}},{
+                lastName:{$regex: last_name, $options: 'i'}}]});
         }
 
         if(!users)
