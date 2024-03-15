@@ -101,7 +101,7 @@ const login = async (req: Request, res: Response) => {
   const username = req.body.username;
   const password = req.body.password;
   if (!username || !password) {
-    return res.status(400).send("missing email or password");
+    return res.status(400).send("missing username or password");
   }
   try {
     const user = await User.findOne({ username: username });
