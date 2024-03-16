@@ -4,7 +4,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
- "firstName":"mashuuu", "lastName":"tov","email": "somet1211@gmail.com","username": "some1211", "password":"12325"
+ "firstName":"mashuuu", "lastName":"tov","email": "somet12111@gmail.com","username": "some12119", "password":"12325"
 }
 ###
 //login
@@ -37,12 +37,12 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0MzNlZmZk
 ###
 DELETE http://localhost:3000/userPost/65f45a7bb78c32ba339b16cf
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MTA2NjYsImV4cCI6MTcxMDUxNDI2Nn0.lmfp7UBBTKpvPbWETkAZHsMeIXtZ5aOxhxwbuxWDPO0
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA2MDQyMjAsImV4cCI6MTcxMDYwNzgyMH0.PMfSmWMSTRQHgxtiS8Gj8PqPBSDAKf6wymnhNmfzovY
 
 ###
 POST http://localhost:3000/userPost
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTc1MTcsImV4cCI6MTcxMDYwMTExN30.52FArFtq3ck9JXMpo9cHVfe-zXKh8lIDLh2hcSandrw
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA2MDQyMjAsImV4cCI6MTcxMDYwNzgyMH0.PMfSmWMSTRQHgxtiS8Gj8PqPBSDAKf6wymnhNmfzovY
 
 {
     "content": "best post ever12312 nowa", "imgUrl":"asdasdqwrqwrewtdsfadfa"
@@ -68,7 +68,7 @@ Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTc1MTcsImV4cCI6MTcxMDYwMTExN30.52FArFtq3ck9JXMpo9cHVfe-zXKh8lIDLh2hcSandrw
 ###
 
-GET http://localhost:3000/user/filter/name
+GET http://localhost:3000/user/filter/nabme
 Content-Type: application/json
 
 {
@@ -80,3 +80,10 @@ Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTQ2NzUsImV4cCI6MTcxMDU5ODI3NX0.Ebl78zpSbFGNa00bPOv-plC7E9SoZydb2hedKJskxSY
 
 ###
+PUT http://localhost:3000/userPost/addComment/65f5a5b9dd23b280fe5d3e3c
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY1YzUxNmM1OGM3YWM0ZjEyZWU5MzEiLCJpYXQiOjE3MTA2MDU1OTAsImV4cCI6MTcxMDYwOTE5MH0.3jAanLxRgByRvQI0UGtNGL7dGNvPicuc-LYwks4n1jA
+
+{
+    "content": "tguva", "imgUrl": "asdasdasdhttp","username": "mashu"
+}

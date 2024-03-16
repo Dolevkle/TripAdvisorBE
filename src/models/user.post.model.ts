@@ -4,28 +4,28 @@ import mongoose from "mongoose";
 
 
 export interface IPostComment {
-  commentId: number;
   content: string;
-  responder_name: string;
-  responder_last_name:string;
+  responder_id: string;
+  imgUrl: string;
+  username: string;
 }
 
 
 export const PostComment = new mongoose.Schema<IPostComment>({
-  // commentId:{
-  //   type : Number,
-  //   required: true
-  // },
   content:{
     type: String,
     reuired: true
   },
 
-  responder_name:{
+  responder_id:{
     type : String,
     required: true
   },
-  responder_last_name:{
+  imgUrl:{
+    type : String,
+    required: true
+  },
+  username:{
     type : String,
     required: true
   }
