@@ -33,7 +33,7 @@ export const PostComment = new mongoose.Schema<IPostComment>({
 
 export interface IUserPost {
   content: string;
-  imgurl: string
+  imgUrl: string
   owner: string;
   comments: [IPostComment];
 }
@@ -43,7 +43,7 @@ const userPostSchema = new mongoose.Schema<IUserPost>({
     type: String,
     required: true,
   },
-  imgurl:{
+  imgUrl:{
     type: String,
     required: false,
   },

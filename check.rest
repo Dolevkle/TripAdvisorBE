@@ -42,10 +42,10 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFk
 ###
 POST http://localhost:3000/userPost
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MzI0MDgsImV4cCI6MTcxMDUzNjAwOH0.fjCdm27BcnC6fWuvjnz7t82ee18-qrZt3T7rISfzK2Q
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTc1MTcsImV4cCI6MTcxMDYwMTExN30.52FArFtq3ck9JXMpo9cHVfe-zXKh8lIDLh2hcSandrw
 
 {
-    "content": "best post ever12312 nowa", "imgurl":"asdqwre"
+    "content": "best post ever12312 nowa", "imgUrl":"asdasdqwrqwrewtdsfadfa"
 }
 ###
 PUT http://localhost:3000/userPost/65f47e866f510f38d6686bf4
@@ -65,7 +65,7 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFk
 
 GET http://localhost:3000/userPost/user/allPosts
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MzI0MDgsImV4cCI6MTcxMDUzNjAwOH0.fjCdm27BcnC6fWuvjnz7t82ee18-qrZt3T7rISfzK2Q
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTc1MTcsImV4cCI6MTcxMDYwMTExN30.52FArFtq3ck9JXMpo9cHVfe-zXKh8lIDLh2hcSandrw
 ###
 
 GET http://localhost:3000/user/filter/name
