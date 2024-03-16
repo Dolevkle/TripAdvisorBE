@@ -42,10 +42,10 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFk
 ###
 POST http://localhost:3000/userPost
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA2MDQyMjAsImV4cCI6MTcxMDYwNzgyMH0.PMfSmWMSTRQHgxtiS8Gj8PqPBSDAKf6wymnhNmfzovY
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA2MDg2MjcsImV4cCI6MTcxMDYxMjIyN30.KD_wvSzojvuo8us0CULrsKgqeCUhecgrQ9eFbrLMTME
 
 {
-    "content": "best post ever12312 nowa", "imgUrl":"asdasdqwrqwrewtdsfadfa"
+    "content": "best post ever12312 nowa", "imgUrl":"asdasdqwrqwrewtdsfadfa", "userImgUrl": "Asdasdasdasd", "username":"asdasdasdsadasdsasd"
 }
 ###
 PUT http://localhost:3000/userPost/65f47e866f510f38d6686bf4
@@ -80,10 +80,14 @@ Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTQ2NzUsImV4cCI6MTcxMDU5ODI3NX0.Ebl78zpSbFGNa00bPOv-plC7E9SoZydb2hedKJskxSY
 
 ###
-PUT http://localhost:3000/userPost/addComment/65f5a5b9dd23b280fe5d3e3c
+PUT http://localhost:3000/userPost/addComment/65f5d358c789816ab3d8c74e
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY1YzUxNmM1OGM3YWM0ZjEyZWU5MzEiLCJpYXQiOjE3MTA2MDU1OTAsImV4cCI6MTcxMDYwOTE5MH0.3jAanLxRgByRvQI0UGtNGL7dGNvPicuc-LYwks4n1jA
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA2MDkzNTIsImV4cCI6MTcxMDYxMjk1Mn0.vOoR_Oeucpm5WVKmjAIO00D2ymnaisL-zERYuyXHISE
 
 {
-    "content": "tguva", "imgUrl": "asdasdasdhttp","username": "mashu"
+    "content": "tguva", "userImgUrl": "asdasdasdhttp","username": "mashu"
 }
+###
+GET http://localhost:3000/user/65f4524a1d1bfda5138225fe
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA2MDg2MjcsImV4cCI6MTcxMDYxMjIyN30.KD_wvSzojvuo8us0CULrsKgqeCUhecgrQ9eFbrLMTME

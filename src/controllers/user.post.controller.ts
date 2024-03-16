@@ -23,7 +23,7 @@ class UserPostController extends BaseController<IUserPost>{
             await UserPost.updateOne(
                 {_id :post_id},
                 {$push :{comments:{responder_id: responder_id, content: req.body.content,
-                imgUrl:req.body.imgUrl, username: req.body.username} }}
+                userImgUrl:req.body.userImgUrl, username: req.body.username} }}
             );
             res.status(201).send("comment added");
         }
