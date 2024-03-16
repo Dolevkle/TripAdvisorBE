@@ -83,6 +83,8 @@ export class BaseController<ModelType>{
             res.status(406).send("error: "+ err.message);
         }
     }
+
+
 }
 
 const createController = <ModelType>(model: Model<ModelType>) => {

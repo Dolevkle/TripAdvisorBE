@@ -66,3 +66,11 @@ Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFk
 GET http://localhost:3000/userPost/user/allPosts
 Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1MzI0MDgsImV4cCI6MTcxMDUzNjAwOH0.fjCdm27BcnC6fWuvjnz7t82ee18-qrZt3T7rISfzK2Q
+###
+
+GET http://localhost:3000/user/filter/name
+Content-Type: application/json
+
+{
+    "fullName": ""
+}
