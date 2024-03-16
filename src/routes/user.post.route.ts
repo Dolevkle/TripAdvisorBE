@@ -13,6 +13,8 @@ router.get("/user/allPosts", authMiddleware,userPostController.getPostsByOwner.b
 
 router.put("/:id", authMiddleware, userPostController.putById.bind(userPostController));
 
+router.put("/addComment/:id", authMiddleware, userPostController.addComment.bind(userPostController));
+
 router.delete("/:id", authMiddleware, userPostController.deleteById.bind(userPostController));
 
 export default router;

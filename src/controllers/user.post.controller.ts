@@ -9,25 +9,52 @@ class UserPostController extends BaseController<IUserPost>{
     }
 
     async post(req: AuthResquest, res: Response) {
-        console.log("postUser:" + req.body);
         const _id = req.user._id;
         req.body.owner = _id;
         super.post(req, res);
     }
     
+    async addComment(req:AuthResquest, res:Response)
+    {
+        //post id not comment id 
+        const responder_id = req.user._id;
+        const post_id = req.params.id
+        try{
+            await UserPost.updateOne(
+                {_id :post_id},
+                {$push :{comments:{responder_id: responder_id, content: req.body.content,
+                imgUrl:req.body.imgUrl, username: req.body.username} }}
+            );
+            res.status(201).send("comment added");
+        }
+        catch(err){
+            res.status(500).json({ message: err.message });
+        }
+
+
+    }
+
+
     async putById(req: AuthResquest, res:Response) {
         const user_id = req.user._id;
-        const userPost = await UserPost.findById(req.params.id);
-        if(userPost == null)
+        try
         {
-            res.status(404).send("post doesnt exist");
-        }
-        else if(userPost.owner != user_id){
-            res.status(401).send("cant update posts of other users");
-        }
-        else{
-            super.putById(req,res);
-        }
+
+            const userPost = await UserPost.findById(req.params.id);
+            if(userPost == null)
+            {
+                res.status(404).send("post doesnt exist");
+            }
+            else if(userPost.owner != user_id){
+                res.status(401).send("cant update posts of other users");
+            }
+            else{
+                super.putById(req,res);
+            }
+     }catch(err){
+        res.status(500).json({ message: err.message });
+
+     }
         
     }
 
