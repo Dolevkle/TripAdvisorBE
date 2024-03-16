@@ -26,6 +26,7 @@ const server = initApp().then((app) => {
 
   if (process.env.NODE_ENV !== "production") {
     console.log("development");
+    console.log(process.env.PORT)
     return http.createServer(app).listen(process.env.PORT);
   } else {
     console.log("PRODUCTION");

@@ -41,9 +41,11 @@ const register = async (req: Request, res: Response) => {
   const email = req.body.email;
   const username = req.body.username;
   const password = req.body.password;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
   const imgUrl = req.body.imgUrl;
-  if (!email || !password || !username) {
-    return res.status(400).send("missing email or password or username");
+  if (!email || !password || !username || !firstName || !lastName) {
+    return res.status(400).send("one required argument missing");
   }
   try {
     const rs = await User.findOne({ $or: [{email}, {username}]});
@@ -56,12 +58,16 @@ const register = async (req: Request, res: Response) => {
       email,
       username,
       password: encryptedPassword,
+      firstName,
+      lastName,
       imgUrl,
     });
     const tokens = await generateTokens(rs2);
     res.status(201).send({
       email: rs2.email,
       username: rs2.username,
+      firstName: rs2.firstName,
+      lastName: rs2.lastName,
       _id: rs2._id,
       imgUrl: rs2.imgUrl,
       ...tokens,
@@ -95,7 +101,7 @@ const login = async (req: Request, res: Response) => {
   const username = req.body.username;
   const password = req.body.password;
   if (!username || !password) {
-    return res.status(400).send("missing email or password");
+    return res.status(400).send("missing username or password");
   }
   try {
     const user = await User.findOne({ username: username });
@@ -108,14 +114,11 @@ const login = async (req: Request, res: Response) => {
     }
 
     const tokens = await generateTokens(user);
-    // TODO might be wrong what I did
     return res.status(200).send({
-      email: user.email,
-      username: user.username,
-      _id: user._id,
-      imgUrl: user.imgUrl,
-      ...tokens,
+      'accessToken': tokens.accessToken,
+      'refreshToken': tokens.refreshToken
     });
+
   } catch (err) {
     return res.status(400).send("error missing email or password");
   }
@@ -192,7 +195,7 @@ const refresh = async (req: Request, res: Response) => {
         await userDb.save();
         return res.status(200).send({
           accessToken: accessToken,
-          refreshToken: refreshToken,
+          refreshToken: newRefreshToken,
         });
       } catch (err) {
         res.sendStatus(401).send(err.message);
