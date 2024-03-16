@@ -19,6 +19,10 @@ class UserController extends BaseController<IUser>{
         super.putById(req,res);
         
     }
+    async getById(req: AuthResquest, res: Response) {
+        req.params.id = req.user._id;
+        super.getById(req,res);
+    }
     //using contains and not match 
     async getUserByName(req: Request, res:Response)
     {
