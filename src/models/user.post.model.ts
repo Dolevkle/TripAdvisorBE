@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 export interface IPostComment {
   content: string;
   responder_id: string;
-  imgUrl: string;
+  userImgUrl: string;
   username: string;
 }
 
@@ -21,7 +21,7 @@ export const PostComment = new mongoose.Schema<IPostComment>({
     type : String,
     required: true
   },
-  imgUrl:{
+  userImgUrl:{
     type : String,
     required: true
   },
@@ -35,6 +35,8 @@ export interface IUserPost {
   content: string;
   imgUrl: string
   owner: string;
+  username:string;
+  userImgUrl: string
   comments: [IPostComment];
 }
 
@@ -55,6 +57,14 @@ const userPostSchema = new mongoose.Schema<IUserPost>({
     type: [PostComment],
     required: false,
   },
+  userImgUrl:{
+    type: String,
+    required: true,
+  },
+  username:{
+    type : String,
+    required: true,
+  }
 });
 
 export default mongoose.model<IUserPost>("UserPost", userPostSchema);
