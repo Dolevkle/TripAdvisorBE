@@ -74,3 +74,9 @@ Content-Type: application/json
 {
     "fullName": ""
 }
+###
+GET http://localhost:3000/user
+Content-Type: application/json
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTQ2NzUsImV4cCI6MTcxMDU5ODI3NX0.Ebl78zpSbFGNa00bPOv-plC7E9SoZydb2hedKJskxSY
+
+###
