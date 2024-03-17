@@ -12,20 +12,24 @@ const googleSignin = async (req: Request, res: Response) => {
     const ticket = await client.verifyIdToken({
       idToken: req.body.credential,
       audience: process.env.GOOGLE_CLIENT_ID,
-    });
+    })
+    console.log(ticket)
     const payload = ticket.getPayload();
     const email = payload?.email;
     if (email != null) {
-      let user = await User.findOne({ email: email });
+      let user = await User.findOne({ "email": email });
       if (user == null) {
         user = await User.create({
+          username: email,
+          firstName: payload.given_name,
+          lastName: payload.family_name,
           email: email,
           password: "0",
           imgUrl: payload?.picture,
         });
       }
       const tokens = await generateTokens(user);
-      res.status(200).send({
+      return res.status(200).send({
         email: user.email,
         _id: user._id,
         imgUrl: user.imgUrl,
