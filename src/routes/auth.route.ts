@@ -26,18 +26,85 @@ import authController from "../controllers/auth.controller";
 *     User:
 *       type: object
 *       required:
-*         - email
+*         - username
 *         - password
 *       properties:
-*         email:
+*         username:
 *           type: string
-*           description: The user email
+*           description: The user username
 *         password:
 *           type: string
 *           description: The user password
 *       example:
-*         email: 'bob@gmail.com'
+*         username: 'username123'
 *         password: '123456'
+*/
+
+/**
+* @swagger
+* components:
+*   schemas:
+*     userRegisterRequest:
+*       type: object
+*       required:
+*         - username
+*         - password
+*         - firstName
+*         - lastName
+*         - email
+*       properties:
+*         username:
+*           type: string
+*           description: The user username
+*         password:
+*           type: string
+*           description: The user password
+*         email:
+*           type: string
+*           description: The user email
+*         firstName:
+*           type: string
+*           description: The user first name
+*         lastName:
+*           type: string
+*           description: The user last name
+*       example:
+*         username: 'username123'
+*         password: '123456'
+*         email : bob@gmail.com
+*         firstName: Bob
+*         lastName: Jhonson
+*/
+/**
+* @swagger
+* components:
+*   schemas:
+*     userRegisterResponse:
+*       type: object
+*       required:
+*         - username
+*         - password
+*         - firstName
+*         - lastName
+*         - email
+*       properties:
+*         username:
+*           type: string
+*           description: The user username
+*         email:
+*           type: string
+*           description: The user email
+*         firstName:
+*           type: string
+*           description: The user first name
+*         lastName:
+*           type: string
+*           description: The user last name
+*       example:
+*         username: 'username123'
+*         email : bob@gmail.com
+*         firstName: Bob
+*         lastName: Jhonson
 */
 
 /**
@@ -51,14 +118,14 @@ import authController from "../controllers/auth.controller";
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/User'
+*             $ref: '#/components/schemas/userRegisterRequest'
 *     responses:
 *       200:
-*         description: The new user
+*         description: Success
 *         content:
 *           application/json:
 *             schema:
-*               $ref: '#/components/schemas/User'
+*               $ref: '#/components/schemas/userRegisterResponse'
 */
 router.post("/register", authController.register);
 router.post("/google", authController.googleSignin);
@@ -89,7 +156,7 @@ router.post("/google", authController.googleSignin);
 * @swagger
 * /auth/login:
 *   post:
-*     summary: registers a new user
+*     summary: User login
 *     tags: [Auth]
 *     requestBody:
 *       required: true
@@ -121,7 +188,44 @@ router.post("/login", authController.login);
 *         description: logout completed successfully
 */
 router.get("/logout", authController.logout);
+/**
+* @swagger
+* /auth/refresh:
+*   get:
+*     summary: refresh the access token after expired
+*     tags: [Auth]
+*     description: need to provide the refresh token in the auth header
+*     security:
+*       - bearerAuth: []
+*     responses:
+*       200:
+*         description: success, returns new tokens
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/Tokens'
+*/
 router.get("/refresh", authController.refresh);
+/**
+* @swagger
+* /auth/allUsers:
+*   post:
+*     summary: registers a new user
+*     tags: [Auth]
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/User'
+*     responses:
+*       200:
+*         description: The new user
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
+*/
 router.get("/allUsers/:id", authController.getAllUsers);
 
 export default router;

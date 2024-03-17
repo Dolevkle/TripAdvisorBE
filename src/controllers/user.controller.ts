@@ -23,12 +23,14 @@ class UserController extends BaseController<IUser>{
     //     req.params.id = req.user._id;
     //     super.getById(req,res);
     // }
+
+    
     //using contains and not match 
     async getUserByName(req: Request, res:Response)
     {
 
         //splits the first space from the string incase someone has last name with spaces
-        const [first_name, last_name] = req.body.fullName.replace(/\s+/, '\x01').split('\x01');
+        const [first_name, last_name] = req.params.fullName.replace(/\s+/, '\x01').split('\x01');
         let users =[];
         //query for searching string that contains
         if(!last_name){
