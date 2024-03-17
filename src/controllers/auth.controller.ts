@@ -33,6 +33,9 @@ const googleSignin = async (req: Request, res: Response) => {
         email: user.email,
         _id: user._id,
         imgUrl: user.imgUrl,
+        username: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
         ...tokens,
       });
     }
