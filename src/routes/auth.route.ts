@@ -12,6 +12,22 @@ import authController from "../controllers/auth.controller";
 /**
 * @swagger
 * components:
+*   schemas:
+*     AuthTokens:
+*       type: object
+*       properties:
+*         accessToken:
+*           type: string
+*           description: The access token for accessing protected resources.
+*         refreshToken:
+*           type: string
+*           description: The refresh token for obtaining new access tokens.
+*/
+
+
+/**
+* @swagger
+* components:
 *   securitySchemes:
 *     bearerAuth:
 *       type: http
@@ -23,7 +39,7 @@ import authController from "../controllers/auth.controller";
 * @swagger
 * components:
 *   schemas:
-*     User:
+*     UserLogin:
 *       type: object
 *       required:
 *         - username
@@ -111,7 +127,7 @@ import authController from "../controllers/auth.controller";
 * @swagger
 * /auth/register:
 *   post:
-*     summary: registers a new user
+*     summary: Registers a new user
 *     tags: [Auth]
 *     requestBody:
 *       required: true
@@ -120,12 +136,26 @@ import authController from "../controllers/auth.controller";
 *           schema:
 *             $ref: '#/components/schemas/userRegisterRequest'
 *     responses:
-*       200:
+*       201:
 *         description: Success
 *         content:
 *           application/json:
 *             schema:
 *               $ref: '#/components/schemas/userRegisterResponse'
+*       400:
+*         description: Bad Request - Invalid request body or missing required fields
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Invalid request body or missing required fields"
+*       409:
+*         description: Conflict - The resource already exists
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Conflict - One of the values already exist within other user"
 */
 router.post("/register", authController.register);
 router.post("/google", authController.googleSignin);
@@ -163,7 +193,7 @@ router.post("/google", authController.googleSignin);
 *       content:
 *         application/json:
 *           schema:
-*             $ref: '#/components/schemas/User'
+*             $ref: '#/components/schemas/UserLogin'
 *     responses:
 *       200:
 *         description: The acess & refresh tokens
@@ -171,6 +201,20 @@ router.post("/google", authController.googleSignin);
 *           application/json:
 *             schema:
 *               $ref: '#/components/schemas/Tokens'
+*       400:
+*         description: Missing username or password
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Missing username or password"
+*       401:
+*         description: Username or password incorrect
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Username or password incorrect"
 */
 router.post("/login", authController.login);
 
@@ -178,32 +222,51 @@ router.post("/login", authController.login);
 * @swagger
 * /auth/logout:
 *   get:
-*     summary: logout a user
+*     summary: Logout a user
 *     tags: [Auth]
 *     description: need to provide the refresh token in the auth header
 *     security:
 *       - bearerAuth: []
 *     responses:
 *       200:
-*         description: logout completed successfully
+*         description: Logout completed successfully
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Logout succeeded"
+*       401:
+*         description: Unauthorized - Invalid token
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token"
 */
 router.get("/logout", authController.logout);
 /**
 * @swagger
 * /auth/refresh:
 *   get:
-*     summary: refresh the access token after expired
+*     summary: Refresh the access token after expired
 *     tags: [Auth]
-*     description: need to provide the refresh token in the auth header
+*     description: Need to provide the refresh token in the auth header
 *     security:
 *       - bearerAuth: []
 *     responses:
 *       200:
-*         description: success, returns new tokens
+*         description: Success, returns new tokens
 *         content:
 *           application/json:
 *             schema:
 *               $ref: '#/components/schemas/Tokens'
+*       401:
+*         description: Unauthorized - Refresh token invalid
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Refresh token invalid"
 */
 router.get("/refresh", authController.refresh);
 /**

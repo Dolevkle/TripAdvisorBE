@@ -41,10 +41,9 @@ class UserController extends BaseController<IUser>{
                 firstName :{$regex: first_name, $options: 'i'}},{
                 lastName:{$regex: last_name, $options: 'i'}}]});
         }
-
         if(!users)
         {
-            res.status(404).send("couldnt find by name and last name");
+            res.status(404).send("Couldnt find by name and last name");
         }
         else
         {

@@ -24,7 +24,7 @@ import authMiddleware from "../common/auth.middleware";
 * @swagger
 * components:
 *   schemas:
-*     userUpdate:
+*     User:
 *       type: object
 *       properties:
 *         username:
@@ -50,21 +50,41 @@ import authMiddleware from "../common/auth.middleware";
 *         lastName: Jhonson
 */
 
-
+// didnt finished yet
 /**
 * @swagger
 * /user/allUsers:
 *   get:
-*     summary: logout a user
+*     summary: Get all users
 *     tags: [User]
 *     description: need to provide the refresh token in the auth header
 *     security:
 *       - bearerAuth: []
 *     responses:
 *       200:
-*         description: logout completed successfully
+*         description: Success
+*         content:
+*           application/json:
+*             schema:
+*               type: array
+*               items:
+*                 $ref: '#/components/schemas/User'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: Internal server error
 */
-router.get("/allUsers", authMiddleware, userController.get.bind(userController));
+router.get("/allUsers", authMiddleware, userController.getAll.bind(userController));
 
 
 /**
@@ -72,7 +92,7 @@ router.get("/allUsers", authMiddleware, userController.get.bind(userController))
 * /user/{id}:
 *   get:
 *     tags: [User]
-*     description: Get user by id
+*     summary: Get user by id
 *     security:
 *       - bearerAuth: []
 *     parameters:
@@ -84,7 +104,25 @@ router.get("/allUsers", authMiddleware, userController.get.bind(userController))
 *           type: string
 *     responses:
 *       200:
-*         description: logout completed successfully
+*         description: The new user
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: Internal server error
 */
 router.get("/:id", authMiddleware, userController.getById.bind(userController));
 
@@ -110,19 +148,37 @@ router.get("/:id", authMiddleware, userController.getById.bind(userController));
 * /user/filter/{fullName}:
 *   get:
 *     tags: [User]
-*     description: Get users who include full name
+*     summary: Get users who include full name
 *     security:
 *       - bearerAuth: []
 *     parameters:
 *       - name: fullName
 *         in: path
-*         description: full name of the user to search
+*         description: Full name of the user to search
 *         required: true
 *         schema:
 *           type: string
 *     responses:
 *       200:
-*         description: returned users successfully
+*         description: The new user
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       404:
+*         description: Couldnt find by name and last name
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Couldnt find by name and last name"
 */
 router.get("/filter/:fullName",authMiddleware,userController.getUserByName.bind(userController))
 
@@ -148,12 +204,28 @@ router.get("/filter/:fullName",authMiddleware,userController.getUserByName.bind(
 *         application/json:
 *           schema:
 *             type: object
-*             $ref: '#/components/schemas/userUpdate'
+*             $ref: '#/components/schemas/User'
 *     responses:
 *       200:
-*         description: User updated successfully
+*         description: The new user
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
 *       404:
-*         description: User not found
+*         description: Not found, update failed
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Not found, update failed"
 */
 router.put("/:id", authMiddleware, userController.putById.bind(userController));
 
@@ -161,14 +233,19 @@ router.put("/:id", authMiddleware, userController.putById.bind(userController));
 * @swagger
 * /user:
 *   delete:
-*     summary: delete user
+*     summary: Delete user
 *     tags: [User]
-*     description: delete own user
+*     description: Delete own user
 *     security:
 *       - bearerAuth: []
 *     responses:
 *       200:
-*         description: delete succeeded
+*         description: Deleted successfully
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Deleted successfully"
 */
 router.delete("/", authMiddleware, userController.deleteById.bind(userController));
 

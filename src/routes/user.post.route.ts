@@ -24,30 +24,48 @@ import authMiddleware from "../common/auth.middleware";
 * @swagger
 * components:
 *   schemas:
-*     userUpdate:
+*     userPost:
 *       type: object
 *       properties:
+*         content:
+*           type: string
+*           description: The post text
+*         imgUrl:
+*           type: string
+*           description: Posts image url
+*         userImgUrl:
+*           type: string
+*           description: The user image url
 *         username:
 *           type: string
-*           description: The user username
-*         password:
-*           type: string
-*           description: The user password
-*         email:
-*           type: string
-*           description: The user email
-*         firstName:
-*           type: string
-*           description: The user first name
-*         lastName:
-*           type: string
-*           description: The user last name
+*           description: The post owner username
 *       example:
 *         username: 'username123'
-*         password: '123456'
-*         email : bob@gmail.com
-*         firstName: Bob
-*         lastName: Jhonson
+*         imgUrl: 'url/url'
+*         userImgUrl: 'url/url'
+*         content: 'post content'
+*/
+
+/**
+* @swagger
+* components:
+*   schemas:
+*     Comment:
+*       type: object
+*       properties:
+*         content:
+*           type: string
+*           description: The post text
+*         userImgUrl:
+*           type: string
+*           description: The user image url
+*         username:
+*           type: string
+*           description: The post owner username
+*       example:
+*         username: 'username123'
+*         userImgUrl: 'url/url'
+*         content: 'post content'
 */
 
 
@@ -56,33 +74,264 @@ import authMiddleware from "../common/auth.middleware";
 * @swagger
 * /userPost:
 *   get:
-*     tags: [User]
-*     description: Get user by id
+*     tags: [UserPost]
+*     summary: Get all posts
+*     security:
+*       - bearerAuth: []
+*     responses:
+*       200:
+*         description: Success
+*         content:
+*           application/json:
+*             schema:
+*               type: array
+*               items:
+*                 $ref: '#/components/schemas/userPost'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: Internal server error
+*/
+router.get("/",authMiddleware, userPostController.getAll.bind(userPostController));
+
+/**
+* @swagger
+* /userPost/{id}:
+*   get:
+*     tags: [UserPost]
+*     summary: Get post by its id
 *     security:
 *       - bearerAuth: []
 *     parameters:
 *       - name: id
 *         in: path
-*         description: ID of the user to retrieve
+*         description: ID of the post to retrieve
 *         required: true
 *         schema:
 *           type: string
 *     responses:
 *       200:
-*         description: logout completed successfully
+*         description: The new user
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/userPost'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: Internal server error
 */
-router.get("/", userPostController.get.bind(userPostController));
+router.get("/:id",authMiddleware, userPostController.getById.bind(userPostController));
 
-router.get("/:id", userPostController.getById.bind(userPostController));
 
+/**
+* @swagger
+* /userPost:
+*   post:
+*     summary: Create post
+*     tags: [UserPost]
+*     security:
+*       - bearerAuth: []
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/userPost'
+*     responses:
+*       201:
+*         description: Success
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/userPost'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Internal server error"
+*/
 router.post("/", authMiddleware, userPostController.post.bind(userPostController));
 
+/**
+* @swagger
+* /userPost/user/allPosts:
+*   get:
+*     tags: [UserPost]
+*     summary: Get all posts of a user
+*     security:
+*       - bearerAuth: []
+*     responses:
+*       200:
+*         description: Success
+*         content:
+*           application/json:
+*             schema:
+*               type: array
+*               items:
+*                 $ref: '#/components/schemas/userPost'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       404:
+*         description: Post doesnt exist
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Post doesnt exist"
+*/
 router.get("/user/allPosts", authMiddleware,userPostController.getPostsByOwner.bind(userPostController));
 
+/**
+* @swagger
+* /userPost/{id}:
+*   put:
+*     summary: Update user post by ID
+*     tags: [UserPost]
+*     security:
+*       - bearerAuth: []
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         description: ID of the post to update
+*         schema:
+*           type: string
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/userPost'
+*     responses:
+*       200:
+*         description: Success. User post updated.
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/userPost'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       404:
+*         description: Post doesnt exist
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Post doesnt exist"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Internal server error"
+*/
 router.put("/:id", authMiddleware, userPostController.putById.bind(userPostController));
 
+/**
+* @swagger
+* /userPost/addComment/{id}:
+*   put:
+*     summary: Add comment to post
+*     tags: [UserPost]
+*     security:
+*       - bearerAuth: []
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         description: ID of the user to update
+*         schema:
+*           type: string
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             $ref: '#/components/schemas/Comment'
+*     responses:
+*       200:
+*         description: Success. Comment added.
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/Comment'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Internal server error"
+*/
 router.put("/addComment/:id", authMiddleware, userPostController.addComment.bind(userPostController));
 
+
+/**
+* @swagger
+* /user:
+*   delete:
+*     summary: Delete user post
+*     tags: [User]
+*     description: Delete own user
+*     security:
+*       - bearerAuth: []
+*     responses:
+*       200:
+*         description: Deleted successfully
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Deleted successfully"
+*/
 router.delete("/:id", authMiddleware, userPostController.deleteById.bind(userPostController));
 
 export default router;
