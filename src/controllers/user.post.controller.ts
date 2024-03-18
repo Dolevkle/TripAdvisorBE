@@ -25,7 +25,6 @@ class UserPostController extends BaseController<IUserPost>{
                 {$push :{comments:{responder_id: responder_id, content: req.body.content,
                 userImgUrl:req.body.userImgUrl, username: req.body.username} }}
             );
-            // res.status(201).send("Comment added");
             const commentAdded = req.body
             res.status(201).send(commentAdded);
         }
