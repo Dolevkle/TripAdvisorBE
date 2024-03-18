@@ -8,7 +8,7 @@ export class BaseController<ModelType>{
         this.model = model;
     }
 
-    async get(req: Request, res: Response) {
+    async getAll(req: Request, res: Response) {
         console.log("getAll");
         try {
             if (req.query.name) {
@@ -40,7 +40,7 @@ export class BaseController<ModelType>{
             res.status(201).send(obj);
         } catch (err) {
             console.log(err);
-            res.status(406).send("error: " + err.message);
+            res.status(500).send("error: " + err.message);
         }
     }
     async putById(req: Request, res: Response) {
@@ -61,26 +61,26 @@ export class BaseController<ModelType>{
         }
         catch (err){
             console.log(err);
-            res.status(406).send("error: " + err.message);
+            res.status(500).send("error: " + err.message);
         }
     }
 
     async deleteById(req: Request, res: Response) {
-        console.log("delete by id: " +req.params.id);
+        console.log("Delete by id: " +req.params.id);
         try{
            const deletedCount = await this.model.deleteOne({_id: req.params.id});
            if(deletedCount["deletedCount"] == 0 )
            {
-            res.status(404).send("id not found, delete failed");
+            res.status(404).send("Id not found, delete failed");
            }
            else
            {
-            res.status(200).send(deletedCount);
+            res.status(200).send("Deleted successfully");
            }
         }
         catch(err){
             console.log(err);
-            res.status(406).send("error: "+ err.message);
+            res.status(500).send("Error: "+ err.message);
         }
     }
 

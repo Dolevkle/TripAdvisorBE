@@ -25,7 +25,9 @@ class UserPostController extends BaseController<IUserPost>{
                 {$push :{comments:{responder_id: responder_id, content: req.body.content,
                 userImgUrl:req.body.userImgUrl, username: req.body.username} }}
             );
-            res.status(201).send("comment added");
+            // res.status(201).send("Comment added");
+            const commentAdded = req.body
+            res.status(201).send(commentAdded);
         }
         catch(err){
             res.status(500).json({ message: err.message });
@@ -43,10 +45,10 @@ class UserPostController extends BaseController<IUserPost>{
             const userPost = await UserPost.findById(req.params.id);
             if(userPost == null)
             {
-                res.status(404).send("post doesnt exist");
+                res.status(404).send("Post doesnt exist");
             }
             else if(userPost.owner != user_id){
-                res.status(401).send("cant update posts of other users");
+                res.status(401).send("Cant update posts of other users");
             }
             else{
                 super.putById(req,res);
@@ -65,7 +67,7 @@ class UserPostController extends BaseController<IUserPost>{
                 const objects = await this.model.find({ owner: req.user._id });
                 res.send(objects);
             } else {
-                res.status(404).send("user not found");
+                res.status(404).send("User not found");
             }
         } catch (err) {
             res.status(500).json({ message: err.message });
@@ -77,10 +79,10 @@ class UserPostController extends BaseController<IUserPost>{
         const userPost = await UserPost.findById(req.params.id);
         if(userPost == null)
         {
-            res.status(404).send("post doesnt exist");
+            res.status(404).send("Post doesnt exist");
         }
         else if(userPost.owner != user_id){
-            res.status(401).send("cant delete posts of other users");
+            res.status(401).send("Cant delete posts of other users");
         }
         else{
             super.deleteById(req,res);
