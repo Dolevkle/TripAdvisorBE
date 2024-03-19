@@ -21,12 +21,22 @@ beforeAll(async () => {
   console.log("beforeAll");
   // await User.deleteMany();
 
-  User.deleteMany({ 'email': user.email });
-  await request(app).post("/auth/register").send(user);
-  const response = await request(app).post("/auth/login").send(user);
-  accessToken = response.body.accessToken;
-  user_id = (await request(app).get("/user").set("Authorization", "JWT " + accessToken)).body._id;
+//   User.deleteMany({ 'email': user.email });
+//   await request(app).post("/auth/register").send(user);
+//   const response = await request(app).post("/auth/login").send(user);
+//   accessToken = response.body.accessToken;
+//   user_id = (await request(app).get("/user").set("Authorization", "JWT " + accessToken)).body._id;
 });
+beforeEach(async () => {
+    console.log("beforeach");
+    // await User.deleteMany();
+  
+    User.deleteMany({ 'email': user.email });
+    await request(app).post("/auth/register").send(user);
+    const response = await request(app).post("/auth/login").send(user);
+    accessToken = response.body.accessToken;
+    user_id = (await request(app).get("/user").set("Authorization", "JWT " + accessToken)).body._id;
+  });
 
 afterAll(async () => {
   await mongoose.connection.close();
@@ -36,6 +46,12 @@ afterAll(async () => {
 describe("User tests", () => {
   test("Test get user with token", async () => {
     const response = await request(app).get("/user").set("Authorization", "JWT " + accessToken);
+    expect(response.statusCode).toBe(200);
+    expect(response.body._id).toBe(user_id);
+  });
+
+  test("Test get user by id", async () => {
+    const response = await request(app).get(`/user/${user_id}`).set("Authorization", "JWT " + accessToken);
     expect(response.statusCode).toBe(200);
     expect(response.body._id).toBe(user_id);
   });
@@ -50,8 +66,21 @@ describe("User tests", () => {
     expect(response.body.firstName).toBe(updatedUser.firstName);
   });
 
-//   test("Test DELETE /user/:id", async () => {
-//     const response = await request(app).delete(`/student/${student._id}`);
-//     expect(response.statusCode).toBe(200);
-//   });
+  test("Test get all users", async () => {
+    const response = await request(app).get(`/user/allUsers`).set("Authorization", "JWT " + accessToken);
+    expect(response.statusCode).toBe(200);
+    expect(Array.isArray(response.body)).toBe(true);
+  });
+
+  test("Test filter user by first name and last name", async () => {
+    const response = await request(app).get(`/user/filter/B`).set("Authorization", "JWT " + accessToken);
+    expect(response.statusCode).toBe(200);
+    expect(response.body.length).toBeGreaterThan(1);
+  });
+
+
+  test("Test DELETE /user/:id", async () => {
+    const response = await request(app).delete(`/user`).set("Authorization", "JWT " + accessToken);
+    expect(response.statusCode).toBe(200);
+  });
 });

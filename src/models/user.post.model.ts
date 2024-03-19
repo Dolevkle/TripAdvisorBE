@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 
 
 
-interface IPostComment {
+export interface IPostComment {
   content: string;
-  responder_id: string;
+  responder_id?: string;
   userImgUrl: string;
   username: string;
 }
