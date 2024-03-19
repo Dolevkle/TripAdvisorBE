@@ -60,7 +60,6 @@ class UserPostController extends BaseController<IUserPost>{
     }
 
     async getPostsByOwner(req: AuthResquest, res: Response) {
-        console.log("getAll");
         try {
             if (req.user._id) {
                 const objects = await this.model.find({ owner: req.user._id });

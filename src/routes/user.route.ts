@@ -248,5 +248,6 @@ router.put("/:id", authMiddleware, userController.putById.bind(userController));
 *               example: "Deleted successfully"
 */
 router.delete("/", authMiddleware, userController.deleteById.bind(userController));
+router.get("/", authMiddleware, userController.getByToken.bind(userController));
 
 export default router;
