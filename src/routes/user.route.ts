@@ -140,7 +140,7 @@ router.get("/:id", authMiddleware, userController.getById.bind(userController));
 // *       200:
 // *         description: logout completed successfully
 // */
-// router.get("/", authMiddleware, userController.getById.bind(userController));
+router.get("/", authMiddleware, userController.getById.bind(userController));
 
 
 /**
