@@ -265,6 +265,7 @@ router.get("/user/allPosts", authMiddleware,userPostController.getPostsByOwner.b
 *             schema:
 *               type: string
 *               example: "Internal server error"
+
 */
 router.put("/:id", authMiddleware, userPostController.putById.bind(userPostController));
 

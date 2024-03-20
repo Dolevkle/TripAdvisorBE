@@ -209,6 +209,13 @@ router.get("/filter/:fullName",authMiddleware,userController.getUserByName.bind(
 *             schema:
 *               type: string
 *               example: "Not found, update failed"
+*       409:
+*         description: Email or username already exists
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Email or username already exists"
 */
 router.put("/:id", authMiddleware, userController.putById.bind(userController));
 

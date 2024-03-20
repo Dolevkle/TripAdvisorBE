@@ -11,20 +11,22 @@ class UserController extends BaseController<IUser>{
     }
 
     async putById(req: AuthResquest, res: Response) {
-
-        const checkUserConflict = await this.model.findOne({ $or: [req.body.email, req.body.username]});
+        let checkUserConflict;
         if( req.body.username || req.body.email)
         {
-            if (checkUserConflict != null) {
-              res.status(409).send("Email or username already exists");
-            }   
+            checkUserConflict = await UserModel.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] });
         }
-        else if(req.body.password){
+        if(req.body.password){
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
         }
-        super.putById(req,res);
-        
+        if (checkUserConflict != null && checkUserConflict.id != req.user._id) {
+            res.status(409).send("Email or username already exists");  
+        }
+        else{
+            super.putById(req,res);
+        }
+
     }
     async getByToken(req: AuthResquest, res: Response) {
         req.params.id = req.user._id;
