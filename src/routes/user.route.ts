@@ -50,7 +50,6 @@ import authMiddleware from "../common/auth.middleware";
 *         lastName: Jhonson
 */
 
-// didnt finished yet
 /**
 * @swagger
 * /user/allUsers:
@@ -125,22 +124,6 @@ router.get("/allUsers", authMiddleware, userController.getAll.bind(userControlle
 *               example: Internal server error
 */
 router.get("/:id", authMiddleware, userController.getById.bind(userController));
-
-
-// /**
-// * @swagger
-// * /user:
-// *   get:
-// *     summary: get user details by his access token
-// *     tags: [User]
-// *     description: need to provide the refresh token in the auth header
-// *     security:
-// *       - bearerAuth: []
-// *     responses:
-// *       200:
-// *         description: logout completed successfully
-// */
-router.get("/", authMiddleware, userController.getById.bind(userController));
 
 
 /**
@@ -219,6 +202,13 @@ router.get("/filter/:fullName",authMiddleware,userController.getUserByName.bind(
 *             schema:
 *               type: string
 *               example: "Unauthorized - Invalid token or token expired"
+*       403:
+*         description: Cant update other users
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Cant update other users"
 *       404:
 *         description: Not found, update failed
 *         content:
@@ -226,6 +216,13 @@ router.get("/filter/:fullName",authMiddleware,userController.getUserByName.bind(
 *             schema:
 *               type: string
 *               example: "Not found, update failed"
+*       409:
+*         description: Email or username already exists
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Email or username already exists"
 */
 router.put("/:id", authMiddleware, userController.putById.bind(userController));
 
@@ -248,5 +245,6 @@ router.put("/:id", authMiddleware, userController.putById.bind(userController));
 *               example: "Deleted successfully"
 */
 router.delete("/", authMiddleware, userController.deleteById.bind(userController));
+router.get("/", authMiddleware, userController.getByToken.bind(userController));
 
 export default router;

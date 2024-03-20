@@ -11,15 +11,28 @@ class UserController extends BaseController<IUser>{
     }
 
     async putById(req: AuthResquest, res: Response) {
-        console.log("putUser:" + req.body);
+        let checkUserConflict;
+        if( req.body.username || req.body.email)
+        {
+            checkUserConflict = await UserModel.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] });
+        }
         if(req.body.password){
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
         }
-        super.putById(req,res);
-        
+        if(req.user._id != req.params.id)
+        {
+            res.status(403).send("Cant update other users");
+        }
+        else if (checkUserConflict != null && checkUserConflict.id != req.user._id) {
+            res.status(409).send("Email or username already exists");  
+        }
+        else{
+            super.putById(req,res);
+        }
+
     }
-    async getById(req: AuthResquest, res: Response) {
+    async getByToken(req: AuthResquest, res: Response) {
         req.params.id = req.user._id;
         super.getById(req,res);
     }
@@ -32,7 +45,6 @@ class UserController extends BaseController<IUser>{
         //splits the first space from the string incase someone has last name with spaces
         const [first_name, last_name] = req.params.fullName.replace(/\s+/, '\x01').split('\x01');
         let users =[];
-        //query for searching string that contains
         if(!last_name){
             users = await UserModel.find({firstName :{$regex: first_name, $options: 'i'}});
         }
