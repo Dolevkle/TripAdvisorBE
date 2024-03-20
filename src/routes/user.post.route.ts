@@ -251,6 +251,13 @@ router.get("/user/allPosts", authMiddleware,userPostController.getPostsByOwner.b
 *             schema:
 *               type: string
 *               example: "Unauthorized - Invalid token or token expired"
+*       403:
+*         description: Cant update other users posts
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Cant update other users posts"
 *       404:
 *         description: Post doesnt exist
 *         content:
@@ -265,6 +272,7 @@ router.get("/user/allPosts", authMiddleware,userPostController.getPostsByOwner.b
 *             schema:
 *               type: string
 *               example: "Internal server error"
+
 */
 router.put("/:id", authMiddleware, userPostController.putById.bind(userPostController));
 
@@ -280,7 +288,7 @@ router.put("/:id", authMiddleware, userPostController.putById.bind(userPostContr
 *       - in: path
 *         name: id
 *         required: true
-*         description: ID of the user to update
+*         description: ID of the post to update
 *         schema:
 *           type: string
 *     requestBody:
@@ -316,13 +324,18 @@ router.put("/addComment/:id", authMiddleware, userPostController.addComment.bind
 
 /**
 * @swagger
-* /user:
+* /userPost/{id}:
 *   delete:
 *     summary: Delete user post
-*     tags: [User]
+*     tags: [UserPost]
 *     description: Delete own user
 *     security:
 *       - bearerAuth: []
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         description: ID of the post to delete
 *     responses:
 *       200:
 *         description: Deleted successfully
@@ -331,6 +344,20 @@ router.put("/addComment/:id", authMiddleware, userPostController.addComment.bind
 *             schema:
 *               type: string
 *               example: "Deleted successfully"
+*       404:
+*         description: Id not found, delete failed
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Id not found, delete failed"
+*       500:
+*         description: Internal server error
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Internal server error"
 */
 router.delete("/:id", authMiddleware, userPostController.deleteById.bind(userPostController));
 

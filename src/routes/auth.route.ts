@@ -289,6 +289,6 @@ router.get("/refresh", authController.refresh);
 *             schema:
 *               $ref: '#/components/schemas/User'
 */
-router.get("/allUsers/:id", authController.getAllUsers);
+// router.get("/allUsers/:id", authController.getAllUsers);
 
 export default router;

@@ -203,19 +203,6 @@ const refresh = async (req: Request, res: Response) => {
     }
   );
 };
-const getAllUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({ _id: { $ne: req.params.id } }).select([
-      "email",
-      "username",
-      "imgUrl",
-      "_id",
-    ]);
-    return res.json(users);
-  } catch (ex) {
-    next(ex);
-  }
-};
 
 export default {
   googleSignin,
@@ -223,5 +210,4 @@ export default {
   login,
   logout,
   refresh,
-  getAllUsers,
 };

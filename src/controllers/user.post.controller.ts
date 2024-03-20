@@ -47,7 +47,7 @@ class UserPostController extends BaseController<IUserPost>{
                 res.status(404).send("Post doesnt exist");
             }
             else if(userPost.owner != user_id){
-                res.status(401).send("Cant update posts of other users");
+                res.status(403).send("Cant update posts of other users");
             }
             else{
                 super.putById(req,res);
@@ -60,7 +60,6 @@ class UserPostController extends BaseController<IUserPost>{
     }
 
     async getPostsByOwner(req: AuthResquest, res: Response) {
-        console.log("getAll");
         try {
             if (req.user._id) {
                 const objects = await this.model.find({ owner: req.user._id });

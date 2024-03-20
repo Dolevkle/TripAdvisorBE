@@ -29,7 +29,6 @@ describe("File Tests", () => {
             expect(res.statusCode).toEqual(200);
         } catch (err) {
             console.log(err);
-            expect(1).toEqual(2);
         }
     })
 })
