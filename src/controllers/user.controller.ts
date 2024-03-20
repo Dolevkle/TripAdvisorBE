@@ -11,8 +11,15 @@ class UserController extends BaseController<IUser>{
     }
 
     async putById(req: AuthResquest, res: Response) {
-        console.log("putUser:" + req.body);
-        if(req.body.password){
+
+        const checkUserConflict = await this.model.findOne({ $or: [req.body.email, req.body.username]});
+        if( req.body.username || req.body.email)
+        {
+            if (checkUserConflict != null) {
+              res.status(409).send("Email or username already exists");
+            }   
+        }
+        else if(req.body.password){
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
         }
@@ -32,7 +39,6 @@ class UserController extends BaseController<IUser>{
         //splits the first space from the string incase someone has last name with spaces
         const [first_name, last_name] = req.params.fullName.replace(/\s+/, '\x01').split('\x01');
         let users =[];
-        //query for searching string that contains
         if(!last_name){
             users = await UserModel.find({firstName :{$regex: first_name, $options: 'i'}});
         }

@@ -50,7 +50,6 @@ import authMiddleware from "../common/auth.middleware";
 *         lastName: Jhonson
 */
 
-// didnt finished yet
 /**
 * @swagger
 * /user/allUsers:
@@ -125,22 +124,6 @@ router.get("/allUsers", authMiddleware, userController.getAll.bind(userControlle
 *               example: Internal server error
 */
 router.get("/:id", authMiddleware, userController.getById.bind(userController));
-
-
-// /**
-// * @swagger
-// * /user:
-// *   get:
-// *     summary: get user details by his access token
-// *     tags: [User]
-// *     description: need to provide the refresh token in the auth header
-// *     security:
-// *       - bearerAuth: []
-// *     responses:
-// *       200:
-// *         description: logout completed successfully
-// */
-// router.get("/", authMiddleware, userController.getById.bind(userController));
 
 
 /**

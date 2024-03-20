@@ -27,7 +27,6 @@ const comment :IPostComment = {
     content: "post content"
 }
 let accessToken:string = "";
-// let tempPostId;
 let tempPost;
 
 beforeAll(async () => {
@@ -42,10 +41,6 @@ beforeAll(async () => {
   accessToken = response2.body.accessToken;
   tempPost = await request(app).post("/userPost").set("Authorization", "JWT " + accessToken).send(post1);
 });
-// beforeEach(async () => {
-
-// })
-
 
 afterAll(async () => {
     UserPost.deleteMany();

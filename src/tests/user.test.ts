@@ -19,18 +19,9 @@ const user : IUser = {
 beforeAll(async () => {
   app = await initApp();
   console.log("beforeAll");
-  // await User.deleteMany();
-
-//   User.deleteMany({ 'email': user.email });
-//   await request(app).post("/auth/register").send(user);
-//   const response = await request(app).post("/auth/login").send(user);
-//   accessToken = response.body.accessToken;
-//   user_id = (await request(app).get("/user").set("Authorization", "JWT " + accessToken)).body._id;
 });
 beforeEach(async () => {
     console.log("beforeach");
-    // await User.deleteMany();
-  
     User.deleteMany({ 'email': user.email });
     await request(app).post("/auth/register").send(user);
     const response = await request(app).post("/auth/login").send(user);
