@@ -8,7 +8,7 @@ router.get("/allUsers", authMiddleware, userController.get.bind(userController))
 // router.get("/:id", authMiddleware, userController.getById.bind(userController));
 
 // router.post("/", authMiddleware, userController.post.bind(userController));
-router.get("/", authMiddleware, userController.getById.bind(userController));
+router.get("/:id", authMiddleware, userController.getById.bind(userController));
 
 router.get("/filter/name",userController.getUserByName.bind(userController))
 

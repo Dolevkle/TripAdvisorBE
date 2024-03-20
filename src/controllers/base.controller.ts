@@ -9,7 +9,7 @@ export class BaseController<ModelType>{
     }
 
     async get(req: Request, res: Response) {
-        console.log("getAll");
+        console.log("getAll")
         try {
             if (req.query.name) {
                 const objects = await this.model.find({ name: req.query.name });
