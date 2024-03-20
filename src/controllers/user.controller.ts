@@ -20,7 +20,11 @@ class UserController extends BaseController<IUser>{
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
         }
-        if (checkUserConflict != null && checkUserConflict.id != req.user._id) {
+        if(req.user._id != req.params.id)
+        {
+            res.status(403).send("Cant update other users");
+        }
+        else if (checkUserConflict != null && checkUserConflict.id != req.user._id) {
             res.status(409).send("Email or username already exists");  
         }
         else{

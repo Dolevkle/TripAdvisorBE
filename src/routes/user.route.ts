@@ -202,6 +202,13 @@ router.get("/filter/:fullName",authMiddleware,userController.getUserByName.bind(
 *             schema:
 *               type: string
 *               example: "Unauthorized - Invalid token or token expired"
+*       403:
+*         description: Cant update other users
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Cant update other users"
 *       404:
 *         description: Not found, update failed
 *         content:

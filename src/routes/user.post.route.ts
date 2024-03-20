@@ -251,6 +251,13 @@ router.get("/user/allPosts", authMiddleware,userPostController.getPostsByOwner.b
 *             schema:
 *               type: string
 *               example: "Unauthorized - Invalid token or token expired"
+*       403:
+*         description: Cant update other users posts
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Cant update other users posts"
 *       404:
 *         description: Post doesnt exist
 *         content:

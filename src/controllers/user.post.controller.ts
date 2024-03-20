@@ -47,7 +47,7 @@ class UserPostController extends BaseController<IUserPost>{
                 res.status(404).send("Post doesnt exist");
             }
             else if(userPost.owner != user_id){
-                res.status(401).send("Cant update posts of other users");
+                res.status(403).send("Cant update posts of other users");
             }
             else{
                 super.putById(req,res);
