@@ -17,7 +17,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/auth/logout
 Content-Type: application/json
-Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWYzMDI3NjFhYTgxYjY0YTQzMDY0MjMiLCJpYXQiOjE3MTA0MzEzOTB9.9YSz6OXgbFhksbjMhA-1HfsbE3eCKTv3QLmTzUMTqjk
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA2NzU1NDV9.WYSi4OVj61A1L3zGFYw1PPlF2MmPvpnQ4pj5ouaC360
 ###
 GET http://localhost:3000/auth/refresh
 Content-Type: application/json
@@ -68,12 +68,10 @@ Content-Type: application/json
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWY0NTI0YTFkMWJmZGE1MTM4MjI1ZmUiLCJpYXQiOjE3MTA1OTc1MTcsImV4cCI6MTcxMDYwMTExN30.52FArFtq3ck9JXMpo9cHVfe-zXKh8lIDLh2hcSandrw
 ###
 
-GET http://localhost:3000/user/filter/nabme
+GET http://localhost:3000/user/filter/m
 Content-Type: application/json
 
-{
-    "fullName": ""
-}
+
 ###
 GET http://localhost:3000/user
 Content-Type: application/json
