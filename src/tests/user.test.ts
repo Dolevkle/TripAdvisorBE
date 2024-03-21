@@ -58,7 +58,7 @@ describe("User tests", () => {
   });
 
   test("Test get all users", async () => {
-    const response = await request(app).get(`/user/allUsers`).set("Authorization", "JWT " + accessToken);
+    const response = await request(app).get(`/user/allUsers/${user_id}`).set("Authorization", "JWT " + accessToken);
     expect(response.statusCode).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
   });

@@ -49,16 +49,51 @@ import authMiddleware from "../common/auth.middleware";
 *         firstName: Bob
 *         lastName: Jhonson
 */
+/**
+* @swagger
+* components:
+*   schemas:
+*     allUsersReturnedSchema:
+*       type: object
+*       properties:
+*         username:
+*           type: string
+*           description: The user username
+*         _id:
+*           type: string
+*           description: The user id
+*         email:
+*           type: string
+*           description: The user email
+*         firstName:
+*           type: string
+*           description: The user first name
+*         lastName:
+*           type: string
+*           description: The user last name
+*       example:
+*         username: 'username123'
+*         _id: '65fa206eb8db56a6c6cb8caa'
+*         email : bob@gmail.com
+*/
+
 
 /**
 * @swagger
-* /user/allUsers:
+* /user/allUsers/{id}:
 *   get:
 *     summary: Get all users
 *     tags: [User]
 *     description: need to provide the refresh token in the auth header
 *     security:
 *       - bearerAuth: []
+*     parameters:
+*       - name: id
+*         in: path
+*         description: ID of the user to retrieve
+*         required: true
+*         schema:
+*           type: string
 *     responses:
 *       200:
 *         description: Success
@@ -67,7 +102,7 @@ import authMiddleware from "../common/auth.middleware";
 *             schema:
 *               type: array
 *               items:
-*                 $ref: '#/components/schemas/User'
+*                 $ref: '#/components/schemas/allUsersReturnedSchema'
 *       401:
 *         description: Unauthorized - Invalid token or token expired
 *         content:
@@ -83,7 +118,7 @@ import authMiddleware from "../common/auth.middleware";
 *               type: string
 *               example: Internal server error
 */
-router.get("/allUsers", authMiddleware, userController.getAll.bind(userController));
+router.get("/allUsers/:id", authMiddleware, userController.getAllUsers.bind(userController));
 
 
 /**
@@ -115,13 +150,6 @@ router.get("/allUsers", authMiddleware, userController.getAll.bind(userControlle
 *             schema:
 *               type: string
 *               example: "Unauthorized - Invalid token or token expired"
-*       500:
-*         description: Internal server error
-*         content:
-*           application/json:
-*             schema:
-*               type: string
-*               example: Internal server error
 */
 router.get("/:id", authMiddleware, userController.getById.bind(userController));
 

@@ -7,8 +7,8 @@ const router = express.Router();
 /**
 * @swagger
 * tags:
-*   name: Messege
-*   description: The Messeges Api
+*   name: Message
+*   description: The Messages Api
 */
 
 /**
@@ -24,15 +24,15 @@ const router = express.Router();
 * @swagger
 * components:
 *   schemas:
-*     getMessege:
+*     getMessage:
 *       type: object
 *       properties:
 *         from:
 *           type: string
-*           description: The user who send the messege
+*           description: The user who send the message
 *         to:
 *           type: string
-*           description: The user who get the messege
+*           description: The user who get the message
 *       example:
 *         from: someone
 *         to: someone
@@ -42,22 +42,22 @@ const router = express.Router();
 * @swagger
 * components:
 *   schemas:
-*     addMessege:
+*     addMessage:
 *       type: object
 *       properties:
 *         from:
 *           type: string
-*           description: The user who send the messege
+*           description: The user who send the message
 *         to:
 *           type: string
-*           description: The user who get the messege
-*         messege:
+*           description: The user who get the message
+*         message:
 *           type: string
-*           description: The messege sent
+*           description: The message sent
 *       example:
 *         from: someone
 *         to: someone
-*         messege: hi
+*         message: hi
 */
 
 
@@ -65,8 +65,8 @@ const router = express.Router();
 * @swagger
 * /messages/addMsg:
 *   post:
-*     summary: Send messeg
-*     tags: [Messege]
+*     summary: Send message
+*     tags: [Message]
 *     security:
 *       - bearerAuth: []
 *     requestBody:
@@ -74,7 +74,7 @@ const router = express.Router();
 *       content:
 *         application/json:
 *           schema:
-*                 $ref: '#/components/schemas/addMessege'
+*                 $ref: '#/components/schemas/addMessage'
 *     responses:
 *       201:
 *         description: Success
@@ -108,8 +108,8 @@ router.post("/addMsg",authMiddleware, addMessage);
 * @swagger
 * /messages/getMsg:
 *   post:
-*     summary: Send messeg
-*     tags: [Messege]
+*     summary: Send message
+*     tags: [Message]
 *     security:
 *       - bearerAuth: []
 *     requestBody:
@@ -117,7 +117,7 @@ router.post("/addMsg",authMiddleware, addMessage);
 *       content:
 *         application/json:
 *           schema:
-*                 $ref: '#/components/schemas/getMessege'
+*                 $ref: '#/components/schemas/getMessage'
 *     responses:
 *       201:
 *         description: Success
@@ -126,10 +126,10 @@ router.post("/addMsg",authMiddleware, addMessage);
 *             schema:
 *               type: object
 *               fromSelf: string
-*               messege: string
+*               message: string
 *               example: 
 *                     fromSelf: string.
-*                     messege: string.
+*                     message: string.
 *       401:
 *         description: Unauthorized - Invalid token or token expired
 *         content:
