@@ -115,13 +115,6 @@ router.get("/allUsers", authMiddleware, userController.getAll.bind(userControlle
 *             schema:
 *               type: string
 *               example: "Unauthorized - Invalid token or token expired"
-*       500:
-*         description: Internal server error
-*         content:
-*           application/json:
-*             schema:
-*               type: string
-*               example: Internal server error
 */
 router.get("/:id", authMiddleware, userController.getById.bind(userController));
 
