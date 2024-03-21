@@ -10,7 +10,7 @@ const authMiddleware = (req: AuthResquest, res: Response, next: NextFunction) =>
     if (token == null) return res.sendStatus(401);
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         console.log(err);
-        if (err) return res.sendStatus(401);
+        if (err) return res.status(401).send("Unauthorized - Invalid token or token expired ");
         req.user = user as { _id: string };
         next();
     });

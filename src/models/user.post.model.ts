@@ -5,13 +5,13 @@ import mongoose from "mongoose";
 
 export interface IPostComment {
   content: string;
-  responder_id: string;
+  responder_id?: string;
   userImgUrl: string;
   username: string;
 }
 
 
-export const PostComment = new mongoose.Schema<IPostComment>({
+const PostComment = new mongoose.Schema<IPostComment>({
   content:{
     type: String,
     reuired: true
@@ -34,10 +34,10 @@ export const PostComment = new mongoose.Schema<IPostComment>({
 export interface IUserPost {
   content: string;
   imgUrl: string
-  owner: string;
+  owner?: string;
   username:string;
   userImgUrl: string
-  comments: [IPostComment];
+  comments?: [IPostComment];
 }
 
 const userPostSchema = new mongoose.Schema<IUserPost>({

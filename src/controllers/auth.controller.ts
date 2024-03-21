@@ -52,12 +52,12 @@ const register = async (req: Request, res: Response) => {
   const lastName = req.body.lastName;
   const imgUrl = req.body.imgUrl;
   if (!email || !password || !username || !firstName || !lastName) {
-    return res.status(400).send("one required argument missing");
+    return res.status(400).send("One required argument missing");
   }
   try {
     const rs = await User.findOne({ $or: [{email}, {username}]});
     if (rs != null) {
-      return res.status(406).send("email or username already exists");
+      return res.status(409).send("Email or username already exists");
     }
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
@@ -80,7 +80,7 @@ const register = async (req: Request, res: Response) => {
       ...tokens,
     });
   } catch (err) {
-    return res.status(400).send("error missing email or password or username");
+    return res.status(400).send("Error missing email or password or username");
   }
 };
 
@@ -108,16 +108,16 @@ const login = async (req: Request, res: Response) => {
   const username = req.body.username;
   const password = req.body.password;
   if (!username || !password) {
-    return res.status(400).send("missing username or password");
+    return res.status(400).send("Missing username or password");
   }
   try {
     const user = await User.findOne({ username: username });
     if (user == null) {
-      return res.status(401).send("username or password incorrect");
+      return res.status(401).send("Username or password incorrect");
     }
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.status(401).send("username or password incorrect");
+      return res.status(401).send("Username or password incorrect");
     }
 
     const tokens = await generateTokens(user);
@@ -127,7 +127,7 @@ const login = async (req: Request, res: Response) => {
     });
 
   } catch (err) {
-    return res.status(400).send("error missing email or password");
+    return res.status(400).send("Error missing email or password");
   }
 };
 
@@ -155,7 +155,7 @@ const logout = async (req: Request, res: Response) => {
             (t) => t !== refreshToken
           );
           await userDb.save();
-          return res.sendStatus(200);
+          return res.status(200).send("Logout succeeded");
         }
       } catch (err) {
         res.sendStatus(401).send(err.message);
@@ -174,7 +174,7 @@ const refresh = async (req: Request, res: Response) => {
     async (err, user: { _id: string }) => {
       if (err) {
         console.log(err);
-        return res.sendStatus(401);
+        return res.status(401).send("Refresh token invalid");
       }
       try {
         const userDb = await User.findOne({ _id: user._id });
@@ -184,7 +184,7 @@ const refresh = async (req: Request, res: Response) => {
         ) {
           userDb.refreshTokens = [];
           await userDb.save();
-          return res.sendStatus(401);
+          return res.status(401).send("Refresh token invalid");
         }
         const accessToken = jwt.sign(
           { _id: user._id },
@@ -210,19 +210,6 @@ const refresh = async (req: Request, res: Response) => {
     }
   );
 };
-const getAllUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({ _id: { $ne: req.params.id } }).select([
-      "email",
-      "username",
-      "imgUrl",
-      "_id",
-    ]);
-    return res.json(users);
-  } catch (ex) {
-    next(ex);
-  }
-};
 
 export default {
   googleSignin,
@@ -230,5 +217,4 @@ export default {
   login,
   logout,
   refresh,
-  getAllUsers,
 };
