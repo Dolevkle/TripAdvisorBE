@@ -38,7 +38,11 @@ const server = initApp().then((app) => {
   }
 });
 
-const io = new Server(void server);
+const io = new Server(void server, { 
+  cors: {
+    origin: '*',
+  }
+});
 
 io.on("connection", (socket) => {
   global.chatSocket = socket;
@@ -54,3 +58,5 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+io.listen(+process.env.SOCKET_PORT);
