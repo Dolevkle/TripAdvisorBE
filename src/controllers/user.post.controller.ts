@@ -61,8 +61,8 @@ class UserPostController extends BaseController<IUserPost>{
 
     async getPostsByOwner(req: AuthResquest, res: Response) {
         try {
-            if (req.user._id) {
-                const objects = await this.model.find({ owner: req.user._id });
+            if (req.params.id) {
+                const objects = await this.model.find({ owner: req.params.id });
                 res.send(objects);
             } else {
                 res.status(404).send("User not found");

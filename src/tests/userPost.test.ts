@@ -80,7 +80,7 @@ describe("User post tests", () => {
   });
 
   test("Test get all post by owner id", async () => {
-    const response = await request(app).get(`/userPost/user/allPosts`).set("Authorization", "JWT " + accessToken);
+    const response = await request(app).get(`/userPost/user/allPosts/${user._id}`).set("Authorization", "JWT " + accessToken);
     expect(response.statusCode).toBe(200);
     expect(response.body[0].owner).toBe(user._id);
   });
