@@ -17,7 +17,7 @@ const server = initApp().then((app) => {
         description:
           "REST server including authentication using JWT and refresh token",
       },
-      servers: [{ url: "http://localhost:3000" }],
+      servers: [{ url: process.env.SWAGGER_URL }],
     },
     apis: ["./src/routes/*.ts"],
   };
