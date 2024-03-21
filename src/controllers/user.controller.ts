@@ -62,6 +62,19 @@ class UserController extends BaseController<IUser>{
             res.status(200).send(users);
         }
     }
+    async getAllUsers (req: AuthResquest, res: Response){
+        try {
+          const users = await UserModel.find({ _id: { $ne: req.params.id } }).select([
+            "email",
+            "username",
+            "imgUrl",
+            "_id",
+          ]);
+          return res.json(users);
+        } catch (err) {
+            res.status(500).json({ message: err.message }); 
+        }
+      }
 
     async deleteById(req: AuthResquest, res: Response) {
         req.params.id = req.user["_id"];
