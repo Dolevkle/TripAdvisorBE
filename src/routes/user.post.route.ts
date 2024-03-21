@@ -344,6 +344,20 @@ router.put("/addComment/:id", authMiddleware, userPostController.addComment.bind
 *             schema:
 *               type: string
 *               example: "Deleted successfully"
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*       403:
+*         description: Cant update other users posts
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Cant update other users posts"
 *       404:
 *         description: Id not found, delete failed
 *         content:
