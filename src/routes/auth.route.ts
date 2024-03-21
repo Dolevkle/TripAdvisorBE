@@ -269,26 +269,6 @@ router.get("/logout", authController.logout);
 *               example: "Unauthorized - Refresh token invalid"
 */
 router.get("/refresh", authController.refresh);
-/**
-* @swagger
-* /auth/allUsers:
-*   post:
-*     summary: registers a new user
-*     tags: [Auth]
-*     requestBody:
-*       required: true
-*       content:
-*         application/json:
-*           schema:
-*             $ref: '#/components/schemas/User'
-*     responses:
-*       200:
-*         description: The new user
-*         content:
-*           application/json:
-*             schema:
-*               $ref: '#/components/schemas/User'
-*/
-// router.get("/allUsers/:id", authController.getAllUsers);
+
 
 export default router;
