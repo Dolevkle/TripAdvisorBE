@@ -184,12 +184,19 @@ router.post("/", authMiddleware, userPostController.post.bind(userPostController
 
 /**
 * @swagger
-* /userPost/user/allPosts:
+* /userPost/user/allPosts/{id}:
 *   get:
 *     tags: [UserPost]
 *     summary: Get all posts of a user
 *     security:
 *       - bearerAuth: []
+*     parameters:
+*       - in: path
+*         name: id
+*         required: true
+*         description: User id
+*         schema:
+*           type: string
 *     responses:
 *       200:
 *         description: Success
@@ -214,7 +221,7 @@ router.post("/", authMiddleware, userPostController.post.bind(userPostController
 *               type: string
 *               example: "Post doesnt exist"
 */
-router.get("/user/allPosts", authMiddleware,userPostController.getPostsByOwner.bind(userPostController));
+router.get("/user/allPosts/:id", authMiddleware,userPostController.getPostsByOwner.bind(userPostController));
 
 /**
 * @swagger
