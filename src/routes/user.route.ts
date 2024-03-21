@@ -273,6 +273,30 @@ router.put("/:id", authMiddleware, userController.putById.bind(userController));
 *               example: "Deleted successfully"
 */
 router.delete("/", authMiddleware, userController.deleteById.bind(userController));
+
+/**
+* @swagger
+* /user/:
+*   get:
+*     tags: [User]
+*     summary: Get own user
+*     security:
+*       - bearerAuth: []
+*     responses:
+*       200:
+*         description: The new user
+*         content:
+*           application/json:
+*             schema:
+*               $ref: '#/components/schemas/User'
+*       401:
+*         description: Unauthorized - Invalid token or token expired
+*         content:
+*           application/json:
+*             schema:
+*               type: string
+*               example: "Unauthorized - Invalid token or token expired"
+*/
 router.get("/", authMiddleware, userController.getByToken.bind(userController));
 
 export default router;
