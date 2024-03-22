@@ -38,11 +38,25 @@ const server = initApp().then((app) => {
   }
 });
 
-const io = new Server(void server, { 
+
+const options3 = {
+    key:    fs.readFileSync('ssl/server.key'),
+    cert:   fs.readFileSync('ssl/server.crt'),
+    ca:     fs.readFileSync('ssl/ca.crt')
+};
+const app = https.createServer(options3);
+app.listen(+process.env.SOCKET_PORT, "0.0.0.0");
+
+const io = new Server(app, {
   cors: {
-    origin: '*',
+    origin: '*:*',
   }
 });
+// const io = new Server(void server, { 
+  // cors: {
+  //   origin: '*:*',
+  // }
+// });
 
 io.on("connection", (socket) => {
   global.chatSocket = socket;
@@ -59,4 +73,4 @@ io.on("connection", (socket) => {
   });
 });
 
-io.listen(+process.env.SOCKET_PORT);
+// io.listen(+process.env.SOCKET_PORT);
