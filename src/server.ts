@@ -34,7 +34,7 @@ const server = initApp().then((app) => {
       key: fs.readFileSync("../client-key.pem"),
       cert: fs.readFileSync("../client-cert.pem"),
     };
-    return https.createServer(options2, app);
+    return https.createServer(options2, app).listen(process.env.HTTPS_PORT);
   }
 });
 
@@ -43,6 +43,7 @@ const io = new Server(void server, {
     origin: '*',
   }
 });
+
 io.on("connection", (socket) => {
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
@@ -58,5 +59,4 @@ io.on("connection", (socket) => {
   });
 });
 
-const listening = async () =>  (await server).listen(process.env.SOCKET_PORT);
-void listening();
+io.listen(+process.env.SOCKET_PORT);
